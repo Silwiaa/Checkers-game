@@ -1,5 +1,6 @@
 package com.game.checkers;
 
+import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -16,7 +17,6 @@ public class Board {
         for (int i = 0; i < size; i++) {
             addRow(grid, 0, i);
         }
-
         return grid;
     }
 
@@ -26,13 +26,13 @@ public class Board {
             Rectangle r = new Rectangle(0, 0, 35, 35);
             grid.add(r, x, y);
             x++;
-
             if (y % 2 == 0) {
                 r.setFill(Color.LIGHTGRAY);
-                    if (i % 2 == 0) {
-                        r.setFill(Color.BLACK);
-                    }
-            } else {
+                if (i % 2 == 0) {
+                    r.setFill(Color.BLACK);
+                }
+            }
+            else {
                 r.setFill(Color.BLACK);
                 if (i % 2 == 0) {
                     r.setFill(Color.LIGHTGRAY);
@@ -41,4 +41,6 @@ public class Board {
         }
     }
 }
+
+
 

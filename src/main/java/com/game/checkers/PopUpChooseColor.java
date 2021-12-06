@@ -12,40 +12,47 @@ import javafx.stage.Popup;
 public class PopUpChooseColor {
     private Button chooseWhiteBtn = new Button();
     private Button chooseBlackBtn = new Button();
-    private Label popupLabel = new Label("Choose your color:");
+    private Popup popPup = new Popup();
+    private Label popupLabel;
     private FlowPane popupPane = new FlowPane();
-    private Popup chooseColor = new Popup();
 
     public Popup setChoseColorPupUp() {
 
-        chooseWhiteBtn.setText("BLACK");
-        chooseBlackBtn.setText("WHITE");
+        popupLabel = new Label("Choose your color:");
+        chooseWhiteBtn.setText("WHITE");
+        chooseBlackBtn.setText("BLACK");
 
+        decoratePopup();
+
+        popupPane.getChildren().add(popupLabel);
+        popupPane.getChildren().add(chooseWhiteBtn);
+        popupPane.getChildren().add(chooseBlackBtn);
+
+        popPup.getContent().add(popupPane);
+
+        return popPup;
+    }
+
+    public void decoratePopup() {
         popupLabel.setMinWidth(350);
         popupLabel.setMinHeight(50);
+        popupPane.setHgap(5.5);
+        popupPane.setVgap(5.5);
         popupLabel.setAlignment(Pos.CENTER);
+
         popupLabel.setTextFill(Color.web("#000"));
         popupLabel.setFont(new Font("Arial", 16));
 
         popupPane.setAlignment(Pos.CENTER);
         popupPane.setStyle(" -fx-background-color: white;");
-        popupPane.setHgap(5.5);
-        popupPane.setVgap(5.5);
-        popupPane.getChildren().add(popupLabel);
-        popupPane.getChildren().add(chooseWhiteBtn);
-        popupPane.getChildren().add(chooseBlackBtn);
         popupPane.setPadding(new Insets(15));
-
-        chooseColor.getContent().add(popupPane);
-
-        return chooseColor;
     }
 
     public Button getWhiteButton() {
         return chooseWhiteBtn;
     }
 
-    public Button getBlaclButton() {
+    public Button getBlackButton() {
         return chooseBlackBtn;
     }
 }
