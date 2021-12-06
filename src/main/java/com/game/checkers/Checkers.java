@@ -15,13 +15,17 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+
+import javax.swing.*;
 
 public class Checkers extends Application {
 
     private Button startBtn = new Button();
     private Label startLbl = new Label("Press button to Start");
     private Image imageback = new Image("file:src/main/resources/background.png");
+
 
     public static void main(String[] args) {
         launch(args);
@@ -48,11 +52,28 @@ public class Checkers extends Application {
 
         Scene scene = new Scene(grid, 910, 910);
 
+        PopUpChooseColor popUpChooseColor = new PopUpChooseColor();
+        PawnsOnStart pawnsOnStart = new PawnsOnStart(sizeForTheGame);
+        Popup chosePopUp = popUpChooseColor.setChoseColorPupUp();
+
         startBtn.setText("  Start  ");
         startBtn.setOnAction((e) -> {
-            Pawn pawn = new Pawn(sizeForTheGame);
-            pawn.setWhitePawnsOnStart(grid);
-            pawn.setBlackPawnsOnStart(grid);
+            chosePopUp.show(primaryStage);
+        });
+
+        Button blackButton = popUpChooseColor.getWhiteButton();
+        Button whiteButton = popUpChooseColor.getBlaclButton();
+
+        blackButton.setOnAction((b) -> {
+            pawnsOnStart.setWhitePawnsWhenBlackChosen(grid);
+            pawnsOnStart.setBlackPawnsWhenBlackChosen(grid);
+            chosePopUp.hide();
+        });
+
+        whiteButton.setOnAction((w) -> {
+            pawnsOnStart.setWhitePawnsWhenWhiteChosen(grid);
+            pawnsOnStart.setBlackPawnsWhenWhiteChosen(grid);
+            chosePopUp.hide();
         });
 
         grid.add(startBtn, sizeForTheGame-2, 12, 2, 1);
