@@ -60,15 +60,23 @@ public class Checkers extends Application {
             newBoard.clearPawnLists();
 
             int position = 0;
+            int col = 0;
             for (int i = 0 ; i < 4 ; i++) {
                 newBoard.createPawns("white", position);
+                grid.add(Pawn.setPawn("white"), col, 7);
+                grid.add(Pawn.setPawn("black"), col, 1);
                 position += 2;
+                col += 2;
             }
 
             position = 9;
+            col = 1;
             for (int j = 4 ; j < 8 ; j++) {
                 newBoard.createPawns("white", position);
+                grid.add(Pawn.setPawn("white"), col, 6);
+                grid.add(Pawn.setPawn("black"), col, 0);
                 position += 2;
+                col += 2;
             }
 
             startPopUp.hide();
@@ -81,15 +89,23 @@ public class Checkers extends Application {
             newBoard.clearPawnLists();
 
             int position = 0;
+            int col = 0;
             for (int i = 0 ; i < 4 ; i++) {
                 newBoard.createPawns("black", position);
+                grid.add(Pawn.setPawn("black"), col, 7);
+                grid.add(Pawn.setPawn("white"), col, 1);
                 position += 2;
+                col += 2;
             }
 
             position = 9;
+            col = 1;
             for (int j = 4 ; j < 8 ; j++) {
                 newBoard.createPawns("black", position);
+                grid.add(Pawn.setPawn("black"), col, 6);
+                grid.add(Pawn.setPawn("white"), col, 0);
                 position += 2;
+                col += 2;
             }
 
             startPopUp.hide();
