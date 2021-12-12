@@ -18,7 +18,6 @@ public class Checkers extends Application {
     private Button startBtn = new Button();
     private Label startLbl = new Label("Press button to start");
     private Image imageback = new Image("file:src/main/resources/background.png");
-    GridPane grid = new GridPane();
 
     public static void main(String[] args) {
         launch(args);
@@ -26,22 +25,26 @@ public class Checkers extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        int boardSize = 8;
+        NewBoard newBoard = new NewBoard(boardSize);
+        GridPane grid = newBoard.setBoard();
+
         BackgroundSize backgroundSize = new BackgroundSize(200, 200, true, true, true, true);
         BackgroundImage backgroundImage = new BackgroundImage(imageback, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
 
         grid.setAlignment(Pos.CENTER);
         grid.setBackground(background);
+        grid.setGridLinesVisible(true);
 
         startBtn.setText("  START  ");
-
         startLbl.setTextFill(Color.web("#FFF"));
         startLbl.setFont(new Font("Arial", 18));
         startLbl.setPadding(new Insets(15));
 
-        int boardSize = 10;
-        Board board = new Board(boardSize);
-        board.createBoard(grid);
+        grid.add(startLbl, 0, boardSize, boardSize / 2 + 2, 1);
+        grid.add(startBtn, boardSize - 2, boardSize, boardSize / 2 -1, 1);
 
         PopUpChooseColor popUpChooseColor = new PopUpChooseColor();
         Popup startPopUp = popUpChooseColor.setChoseColorPupUp();
@@ -53,22 +56,47 @@ public class Checkers extends Application {
         Button whiteButton = popUpChooseColor.getWhiteButton();
         Button blackButton = popUpChooseColor.getBlackButton();
 
-        Pawns pawns = new Pawns(boardSize);
-
         whiteButton.setOnAction((e) -> {
+            newBoard.clearPawnLists();
+
+            int position = 0;
+            for (int i = 0 ; i < 4 ; i++) {
+                newBoard.createPawns("white", position);
+                position += 2;
+            }
+
+            position = 9;
+            for (int j = 4 ; j < 8 ; j++) {
+                newBoard.createPawns("white", position);
+                position += 2;
+            }
+
             startPopUp.hide();
-            board.createBoard(grid);
-            pawns.setPawns(grid, "white");
+            startBtn.setText("  RESTART ");
+            newBoard.boardInfo();
+
         });
 
         blackButton.setOnAction((e) -> {
+            newBoard.clearPawnLists();
+
+            int position = 0;
+            for (int i = 0 ; i < 4 ; i++) {
+                newBoard.createPawns("black", position);
+                position += 2;
+            }
+
+            position = 9;
+            for (int j = 4 ; j < 8 ; j++) {
+                newBoard.createPawns("black", position);
+                position += 2;
+            }
+
             startPopUp.hide();
-            board.createBoard(grid);
-            pawns.setPawns(grid, "black");
+            startBtn.setText("  RESTART  ");
         });
 
-        grid.add(startLbl, 0, boardSize, boardSize / 2 + 2, 1);
-        grid.add(startBtn, boardSize - 2, boardSize, boardSize / 2 -1, 1);
+        newBoard.boardInfo();
 
         Scene scene = new Scene(grid, 910, 910);
 
@@ -77,3 +105,4 @@ public class Checkers extends Application {
         primaryStage.show();
     }
 }
+
